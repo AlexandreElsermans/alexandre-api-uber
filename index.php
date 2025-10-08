@@ -3,12 +3,12 @@
 require_once "controllers\chauffeurController.php";
 require_once "controllers\clientController.php";
 require_once "controllers/voitureController.php";
-
+require_once "controllers/trajetController.php";
 
 $chauffeurController = new ChauffeurController();
 $clientController = new ClientController();
 $voitureController = new VoitureController();
-
+$trajetController = new TrajetController();
 
 // Vérifie si le paramètre "page" est vide ou non présent dans l'URL
 if (empty($_GET["page"])) {
@@ -54,9 +54,9 @@ if (empty($_GET["page"])) {
 
         case "trajets" :
             if (isset($url[1])) {
-                echo "Afficher les informations du trajet : ". $url[1];
+                $trajetController->getTrajetByID($url[1]);
             } else {
-                echo "Afficher les informations des trajets";
+                $trajetController->getAllTrajets();
             }
             break;
         
