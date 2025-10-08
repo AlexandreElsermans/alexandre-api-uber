@@ -13,6 +13,11 @@ class ClientController {
         $clients = $this->model->getDBAllClients();
         echo json_encode($clients);
     }
+
+    public function getClientByID ($idClient) {
+        $client = $this->model->getDBClientByID($idClient);
+        echo json_encode($client);
+    }
 }
 
 //$clientController = new ClientController();

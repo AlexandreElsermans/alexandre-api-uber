@@ -20,9 +20,6 @@ if (empty($_GET["page"])) {
     // On découpe cette chaîne en segments, en séparant sur le caractère "/"
     // Cela donne un tableau, ex : ["chauffeurs", "3"]
     $url = explode("/", $_GET['page']);
-    
-    // Affiche le contenu du tableau pour vérifier comment l’URL est interprétée
-    print_r($url);
 
     // On teste le premier segment pour déterminer la ressource demandée
     switch($url[0]) {
@@ -39,7 +36,7 @@ if (empty($_GET["page"])) {
 
         case "clients" :
             if (isset($url[1])) {
-                echo "Afficher les informations du client : ". $url[1];
+                $clientController->getClientByID($url[1]);
             } else {
                 $clientController->getAllClients();
             }
