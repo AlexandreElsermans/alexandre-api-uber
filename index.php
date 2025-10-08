@@ -2,11 +2,13 @@
 
 require_once "controllers\chauffeurController.php";
 require_once "controllers\clientController.php";
-
+require_once "controllers/voitureController.php";
 
 
 $chauffeurController = new ChauffeurController();
 $clientController = new ClientController();
+$voitureController = new VoitureController();
+
 
 // Vérifie si le paramètre "page" est vide ou non présent dans l'URL
 if (empty($_GET["page"])) {
@@ -44,9 +46,9 @@ if (empty($_GET["page"])) {
 
         case "voitures" :
             if (isset($url[1])) {
-                echo "Afficher les informations de la voiture : ". $url[1];
+                $voitureController->getVoitureByID($url[1]);
             } else {
-                echo "Afficher les informations des voitures";
+                $voitureController->getAllVoitures();
             }
             break;
 
