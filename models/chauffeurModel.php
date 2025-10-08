@@ -24,6 +24,25 @@ class ChauffeurModel {
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function getDBAllChVo() {
+        $stmt = $this->pdo->query("SELECT * FROM Chauffeur 
+        JOIN Voiture ON chauffeur.chauffeur_id = voiture.chauffeur_id
+        GROUP BY voiture_id
+        ");
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getDBChVoByID ($idChauffeur) {
+        $requete = "SELECT * FROM Chauffeur 
+        JOIN Voiture ON voiture.chauffeur_id = chauffeur.chauffeur_id
+        WHERE chauffeur.chauffeur_id = :idChauffeur GROUP BY voiture_id
+        ";
+        $stmt = $this->pdo->prepare($requete);
+        $stmt->bindValue(":idChauffeur", $idChauffeur, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
 
 //$chauffeur1 = new ChauffeurModel();
