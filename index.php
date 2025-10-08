@@ -30,10 +30,10 @@ if (empty($_GET["page"])) {
             // Si un second segment est présent (ex: un ID), on l’utilise
             if (isset($url[1])) {
                 // Exemple : /chauffeurs/3 → affiche les infos du chauffeur 3
-                echo "Afficher les informations du chauffeur : ". $url[1];
+                $chauffeurController->getChauffeurById($url[1]);
             } else {
                 // Sinon, on affiche tous les chauffeurs
-                print_r($chauffeurController->getAllChauffeurs());
+                $chauffeurController->getAllChauffeurs();
             }
             break;
 
@@ -41,7 +41,7 @@ if (empty($_GET["page"])) {
             if (isset($url[1])) {
                 echo "Afficher les informations du client : ". $url[1];
             } else {
-                print_r($clientController->getAllClients());
+                $clientController->getAllClients();
             }
             break;
 
