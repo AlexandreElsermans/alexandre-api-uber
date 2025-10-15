@@ -50,6 +50,15 @@ if (empty($_GET["page"])) {
                     $data = json_decode(file_get_contents("php://input"), true);
                     $chauffeurController->createChauffeur($data);
                     break;
+
+                case "PUT":
+                    if (isset($url[1])) {
+                        $data = json_decode(file_get_contents("php://input"), true);
+                        $chauffeurController->updateChauffeur($url[1], $data);
+                    } else {
+                        http_response_code(400);
+                        echo json_encode(["message" => "chauffeur_id manquant dans l'URL"]);
+                    }
             }
             break;
 

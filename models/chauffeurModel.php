@@ -53,8 +53,22 @@ class ChauffeurModel {
         $stmt->bindParam(":nom", $dataChauffeur["chauffeur_nom"], PDO::PARAM_STR);
         $stmt->bindParam(":tel", $dataChauffeur["chauffeur_telephone"], PDO::PARAM_INT);
         $stmt->execute();
-
         return $this->getDBChauffeurById($dataChauffeur["chauffeur_id"]);
+    }
+
+    public function updateDBChauffeur($id, $donnee) {
+        $requete = "UPDATE chauffeur
+        SET chauffeur_id = :id, chauffeur_nom = :nom, chauffeur_telephone = :tel
+        WHERE chauffeur_id = :idChauffeur
+        ";
+        $stmt = $this->pdo->prepare($requete);
+        $stmt->bindParam(":id", $donnee["chauffeur_id"], PDO::PARAM_INT);
+        $stmt->bindParam(":nom", $donnee["chauffeur_nom"], PDO::PARAM_STR);
+        $stmt->bindParam(":tel", $donnee["chauffeur_telephone"], PDO::PARAM_INT);
+        $stmt->bindParam(":idChauffeur", $id, PDO::PARAM_INT);
+        $stmt->execute();
+        // verifie si une ligne à été modifiée
+        return $stmt->rowCount() > 0;
     }
 }
 
