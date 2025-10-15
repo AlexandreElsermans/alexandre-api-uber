@@ -70,6 +70,15 @@ class ChauffeurModel {
         // verifie si une ligne à été modifiée
         return $stmt->rowCount() > 0;
     }
+
+    public function deleteDBChauffeur($id) {
+        $requete = "DELETE FROM chauffeur WHERE chauffeur_id = :id
+        ";
+        $stmt = $this->pdo->prepare($requete);
+        $stmt->bindParam(":id", $id, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->rowCount() > 0;
+    }
 }
 
 //$chauffeur1 = new ChauffeurModel();
