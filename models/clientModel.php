@@ -37,6 +37,21 @@ class ClientModel {
 
         return $this->getDBClientByID($dataClient["client_id"]);
     }
+
+    public function updateDBClient($id, $donnee){
+        $req = "UPDATE client
+        SET client_id = :idC, client_nom = :nomC, client_telephone = :telC
+        WHERE client_id = :id
+        ";
+        $stmt = $this->pdo->prepare($req);
+        $stmt->bindParam(":idC", $donnee["client_id"], PDO::PARAM_INT);
+        $stmt->bindParam(":nomC", $donnee["client_nom"], PDO::PARAM_STR);
+        $stmt->bindParam(":telC", $donnee["client_telephone"], PDO::PARAM_STR);
+        $stmt->bindParam(":id", $id, PDO::PARAM_INT);
+        $stmt->execute();
+        // verifie si une ligne a été modifiée
+        return $stmt->rowCount() > 0;
+    }
 }
 
 //$client1 = new ClientModel();
