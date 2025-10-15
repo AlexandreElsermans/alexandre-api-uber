@@ -24,6 +24,19 @@ class ClientModel {
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function createDbClient($dataClient){
+        $requete = "INSERT INTO client (client_id, client_nom, client_telephone)
+        VALUE (:id, :nom, :tel);
+        ";
+        $stmt = $this->pdo->prepare($requete);
+        $stmt->bindParam(":id", $dataClient["client_id"], PDO::PARAM_INT);
+        $stmt->bindParam(":nom", $dataClient["client_nom"], PDO::PARAM_STR);
+        $stmt->bindParam(":tel", $dataClient["client_telephone"], PDO::PARAM_STR);
+        $stmt->execute();
+
+        return $this->getDBClientByID($dataClient["client_id"]);
+    }
 }
 
 //$client1 = new ClientModel();

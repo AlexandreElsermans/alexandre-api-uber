@@ -18,6 +18,12 @@ class ClientController {
         $client = $this->model->getDBClientByID($idClient);
         echo json_encode($client);
     }
+
+    public function createClient($dataClient){
+        $ligneClient = $this->model->createDbClient($dataClient);
+        http_response_code(201);
+        echo json_encode($ligneClient);
+    }
 }
 
 //$clientController = new ClientController();

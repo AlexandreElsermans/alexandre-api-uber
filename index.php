@@ -54,10 +54,19 @@ if (empty($_GET["page"])) {
             break;
 
         case "clients" :
-            if (isset($url[1])) {
-                $clientController->getClientByID($url[1]);
-            } else {
-                $clientController->getAllClients();
+            switch($method){
+                case "GET":
+                    if (isset($url[1])) {
+                        $clientController->getClientByID($url[1]);
+                    } else {
+                        $clientController->getAllClients();
+                    }
+                    break;
+                
+                case "POST":
+                    $data = json_decode(file_get_contents("php://input"), true);
+                    $clientController->createClient($data);
+                    break;
             }
             break;
 
